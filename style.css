@@ -98,9 +98,18 @@ h2.widget-title {
 }
 
 .section-features.section-padding {
-    padding: 40px 0px 70px;
-    padding: 2.375rem 0px 4.375rem;
+    padding: 40px 0px 40px;
+    padding: 2.375rem 0px 2.375rem;
 }
-.section-tqfsi .home-search {
+
+.section-tqfsi .more-link {
 	text-align: center;
+}
+
+.section-tqfsi-search .home-search {
+	text-align: center;
+}
+
+.section-tqfsi-search {
+    background-color: #f8f9f9;
 }

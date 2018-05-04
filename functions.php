@@ -56,7 +56,7 @@ if ( ! function_exists( 'onepress_footer_site_info' ) ) {
         <div class="row site-credits">
         <div class="col-sm-6 sponsor">
         <br />
-			Este site foi apoiado pelo<br /><a class="logo-sabin" rel="license" href="http://institutosabin.org.br" alt="Instituto Sabin">Instituto Sabin</a>
+			Este site foi apoiado pelo<br /><a class="logo-sabin" rel="license" href="http://institutosabin.org.br" target="_blank" alt="Instituto Sabin">Instituto Sabin</a>
         </div>
 		<div class="col-sm-6 credits">
         <?php printf(esc_html__('Desenvolvido pela %1$s com %2$s', 'coletivo'), '<a class="logo-brasa" href="' . esc_url('https://brasa.art.br', 'coletivo') . '">Brasa</a>', '<a class="logo-wp" href="' . esc_url('https://br.wordpress.org', 'coletivo') . '"><i class="fa fa-wordpress" aria-hidden="true"></i></a>'); ?>
@@ -74,11 +74,12 @@ add_action( 'coletivo_footer_site_info', 'coletivo_footer_site_info' );
  */
 function add_custom_section_tqfsi(){
 
-$coletivo_tqfsi_id        = get_theme_mod( 'coletivo_tqfsi_id', esc_html__('tainacan', 'coletivo') );
+$coletivo_tqfsi_id        = get_theme_mod( 'coletivo_tqfsi_id', esc_html__('tqfsi', 'coletivo') );
 $coletivo_tqfsi_disable   = get_theme_mod( 'coletivo_tqfsi_disable' ) == 1 ? true : false;
 $coletivo_tqfsi_title     = get_theme_mod( 'coletivo_tqfsi_title', esc_html__('Seção TQFSI', 'coletivo' ));
 $coletivo_tqfsi_subtitle  = get_theme_mod( 'coletivo_tqfsi_subtitle', esc_html__('Section subtitle', 'coletivo' ));
-$coletivo_tqfsi_search_title     = get_theme_mod( 'coletivo_tqfsi_search_title', esc_html__('Search', 'coletivo' ));
+$coletivo_tqfsi_more_link = get_theme_mod( 'coletivo_tqfsi_more_link', '#' );
+$coletivo_tqfsi_more_text = get_theme_mod( 'coletivo_tqfsi_more_text', esc_html__('More', 'coletivo' ));
 $desc = get_theme_mod( 'coletivo_tqfsi_desc' );
 
 if ( coletivo_is_selective_refresh() ) {
@@ -100,10 +101,38 @@ if ( ! coletivo_is_selective_refresh() ){ ?>
             } ?>
         </div>
         <?php } ?>
+
+        <?php if ( $coletivo_tqfsi_more_link != '' ) { ?>
+    <div class="more-link">
+        <a class="btn btn-theme-primary btn-lg" href="<?php echo esc_url($coletivo_tqfsi_more_link) ?>"><?php if ( $coletivo_tqfsi_more_text != '' ) echo esc_html( $coletivo_tqfsi_more_text ); ?></a>
+    </div>
+    <?php } ?>
+    </div>
+    <?php do_action( 'coletivo_section_after_inner', 'tainacan' ); ?>
+<?php if ( ! coletivo_is_selective_refresh() ){ ?>
+</section>
+<?php } ?>
+<?php endif;
+wp_reset_query();
+
+}
+add_action( 'coletivo_before_section_features', 'add_custom_section_tqfsi'  );
+
+function add_custom_section_tqfsi_search(){
+$coletivo_tqfsi_search_disable   = get_theme_mod( 'coletivo_tqfsi_search_disable' ) == 1 ? true : false;
+$coletivo_tqfsi_search_title     = get_theme_mod( 'coletivo_tqfsi_search_title', esc_html__('Search', 'coletivo' ));
+
+if ( coletivo_is_selective_refresh() ) {
+    $disable = false;
+}
+if ( ! $coletivo_tqfsi_search_disable  ) :
+
+if ( ! coletivo_is_selective_refresh() ){ ?>
+<section id="tqfsi-search" <?php do_action( 'coletivo_section_atts', 'coletivo' ); ?> class="<?php echo esc_attr( apply_filters( 'coletivo_section_class', 'section-tqfsi-search section-padding onepage-section', 'coletivo' ) ); ?>">
+<?php } ?>
+    <?php do_action( 'coletivo_section_before_inner', 'coletivo' ); ?>
+    <div class="container">
         <div class="section-content">
-                <div class="row">
-                        
-                </div>
                 <div class="row">
                         <?php if ( $coletivo_tqfsi_search_title ) { ?>
                     <div class="section-title-area">
@@ -121,15 +150,14 @@ if ( ! coletivo_is_selective_refresh() ){ ?>
 </section>
 <?php } ?>
 <?php endif;
-wp_reset_query();
 
 }
-add_action( 'coletivo_before_section_features', 'add_custom_section_tqfsi'  );
+add_action( 'coletivo_after_section_features', 'add_custom_section_tqfsi_search'  );
 
 function coletivo_customize_after_register( $wp_customize ) {
 
     /*------------------------------------------------------------------------*/
-    /*  Tainacan
+    /*  TQFSI
     /*------------------------------------------------------------------------*/
 
     $wp_customize->add_section( 'coletivo_tqfsi_settings' ,
@@ -164,7 +192,7 @@ function coletivo_customize_after_register( $wp_customize ) {
             'default'           => esc_html__('tqfsi', 'coletivo'),
         )
     );
-    $wp_customize->add_control( 'coletivo_tainacan_id',
+    $wp_customize->add_control( 'coletivo_tqfsi_id',
         array(
             'label'     => esc_html__('Section ID:', 'coletivo'),
             'section'       => 'coletivo_tqfsi_settings',
@@ -216,6 +244,50 @@ function coletivo_customize_after_register( $wp_customize ) {
             'description'   => '',
         )
     ));
+
+    // More Button
+    $wp_customize->add_setting( 'coletivo_tqfsi_more_link',
+        array(
+            'sanitize_callback' => 'esc_url',
+            'default'           => '#',
+        )
+    );
+    $wp_customize->add_control( 'coletivo_tqfsi_more_link',
+        array(
+            'label'       => esc_html__('More tqfsi button link', 'coletivo'),
+            'section'     => 'coletivo_tqfsi_settings',
+            'description' => esc_html__(  'It should be your blog page link.', 'coletivo' )
+        )
+    );
+    $wp_customize->add_setting( 'coletivo_tqfsi_more_text',
+        array(
+            'sanitize_callback' => 'sanitize_text_field',
+            'default'           => esc_html__('More', 'coletivo'),
+        )
+    );
+    $wp_customize->add_control( 'coletivo_tqfsi_more_text',
+        array(
+            'label'         => esc_html__('More Button', 'coletivo'),
+            'section'       => 'coletivo_tqfsi_settings',
+            'description'   => '',
+        )
+    );
+
+    // Show Search
+    $wp_customize->add_setting( 'coletivo_tqfsi_search_disable',
+        array(
+            'sanitize_callback' => 'coletivo_sanitize_checkbox',
+            'default'           => '',
+        )
+    );
+    $wp_customize->add_control( 'coletivo_tqfsi_search_disable',
+        array(
+            'type'        => 'checkbox',
+            'label'       => esc_html__('Hide the TQFSI search section?', 'coletivo'),
+            'section'     => 'coletivo_tqfsi_settings',
+            'description' => esc_html__('Check this box to hide this section.', 'coletivo'),
+        )
+    );
     // Search Title
     $wp_customize->add_setting( 'coletivo_tqfsi_search_title',
         array(
@@ -243,15 +315,26 @@ function coletivo_customizer_child_partials( $wp_customize ) {
 
     $selective_refresh_keys = array(
 
-        // section tainacan
+        // section tqfsi
         array(
-            'id' => 'tainacan',
-            'selector' => '.section-tainacan',
+            'id' => 'tqfsi',
+            'selector' => '.section-tqfsi',
             'settings' => array(
                 'coletivo_tqfsi_title',
                 'coletivo_tqfsi_subtitle',
                 'coletivo_tqfsi_desc',
+                'coletivo_tqfsi_more_text',
+                'coletivo_tqfsi_more_link',
+            ),
+        ),
+
+        // section tqfsi search
+        array(
+            'id' => 'tqfsi-search',
+            'selector' => '.section-tqfsi-search',
+            'settings' => array(
                 'coletivo_tqfsi_search_title',
+                'coletivo_tqfsi_search_disable',
             ),
         )
     );
