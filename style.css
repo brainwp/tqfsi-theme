@@ -27,6 +27,14 @@ Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
     font-style: normal;
 }
 
+.site-header {
+    z-index: 9999;
+}
+
+.site-content {
+    border-top: none;
+}
+
 .section-title-area .section-title {
     font-family: 'Nougat';
 }
@@ -234,4 +242,21 @@ h2.widget-title {
 input[type="submit"], input[type="button"], input[type="resett"] {
     font-family: "Raleway", Helvetica, Arial, sans-serif;
 	font-weight: 900;
+}
+
+.section-yourslider {
+    background-color: black;
+}
+
+.section-yourslider.section-padding {
+    padding: 0px;
+}
+
+.section-yourslider .section-title-area {
+    margin-bottom: 0px;
+}
+
+
+.section-team.section-padding {
+    padding: 4.375rem 0px 0.875rem;
 }
