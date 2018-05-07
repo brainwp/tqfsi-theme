@@ -18,7 +18,8 @@
                         <a class="back-top-top" href="#page" title="<?php echo esc_html__('Back To Top', 'coletivo') ?>"><i class="fa fa-angle-double-up wow flash" data-wow-duration="2s"></i></a>
                     </div><!-- btt -->
                 <?php endif; ?>
-                <div class="row">
+                <?php if ( is_front_page() ) { ?>
+                <div class="row section-widgets">
                         <div class="col-lg-4 col-sm-6">
                            <?php dynamic_sidebar('sidebar-3'); ?>
                         </div>
@@ -29,6 +30,7 @@
                             <?php dynamic_sidebar('sidebar-5'); ?>
                         </div>
                 </div>
+                <?php }; ?>
                 <?php
                     /**
                      * Hooked: coletivo_footer_site_info
