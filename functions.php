@@ -43,6 +43,9 @@ function cti_widgets_init() {
 add_action( 'widgets_init', 'cti_widgets_init' );
 
 
+add_image_size( 'orbit-custom', 1040, 480, true );
+
+
 // Altera a função do footer, originalmente no arquivo inc/template-tags.php
 
 if ( ! function_exists( 'onepress_footer_site_info' ) ) {
@@ -116,7 +119,7 @@ if ( ! coletivo_is_selective_refresh() ){ ?>
 wp_reset_query();
 
 }
-add_action( 'coletivo_before_section_features', 'add_custom_section_tqfsi'  );
+add_action( 'coletivo_before_section_hero', 'add_custom_section_tqfsi'  );
 
 function add_custom_section_tqfsi_search(){
 $coletivo_tqfsi_search_disable   = get_theme_mod( 'coletivo_tqfsi_search_disable' ) == 1 ? true : false;

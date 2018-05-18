@@ -173,6 +173,11 @@ h2.widget-title {
     padding: 4.375rem 0px 2.375rem;
 }
 
+.section-services.section-padding {
+    padding: 20px 0px 70px;
+    padding: 1.375rem 0px 4.375rem;
+}
+
 .section-tqfsi {
     background-color: black;
     color: white;
@@ -290,4 +295,49 @@ input[type="submit"], input[type="button"], input[type="resett"] {
 
 .single .page-fullheader img{
     margin-top: -15%;
+}
+
+.archive .page-header .page-title, .category .page-header .page-title {
+    color: #FFF;
+    font-family: 'Nougat', Helvetica, Arial, sans-serif;
+}
+
+.archive .page-header, .category .page-header {
+    border-top: none;
+    background: #FC0092;
+    border-bottom: none;
+}
+
+.archive .list-article, .category .list-article, .blog .list-article {
+    width: 50%;
+}
+
+.blog .page-header .page-title {
+    color: #FC0092;
+    font-family: 'Nougat', Helvetica, Arial, sans-serif;
+}
+
+.blog .page-header {
+    border-top: none;
+    background: #222;
+    border-bottom: none;
+}
+
+.archive .list-article-thumb, .blog .list-article-thumb {
+   max-height: 260px;
+   overflow: hidden;
+}
+
+.blog .list-article-thumb img {
+    margin-top: -7%;
+}
+
+.posts-navigation {
+    clear: both;
+    margin: 0px auto;
+    padding-top: 40px;
+}
+
+.nav-links {
+    margin-bottom: 40px;
 }
